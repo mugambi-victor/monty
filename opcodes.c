@@ -29,6 +29,7 @@ void push(stack_t **stack, unsigned int line_number)
 	if (!stack_token[1] || (!isdigit(stack_token[1][0])
 	&& stack_token[1][0] != '-'))
 	{
+		fprintf(stderr, "%d\n", EXIT_FAILURE);
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		free(new_node);
 		exit(EXIT_FAILURE);
