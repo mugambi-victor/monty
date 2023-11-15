@@ -11,13 +11,14 @@
 */
 void push(stack_t **stack, unsigned int line_number)
 {
+	stack_t *new_node;
 	if (!stack || !line_number)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *new_node = malloc(sizeof(stack_t));
+	new_node = malloc(sizeof(stack_t));
 
 	if (!new_node)
 	{
@@ -51,11 +52,12 @@ void push(stack_t **stack, unsigned int line_number)
 */
 void pall(stack_t **stack, unsigned int line_number)
 {
+	stack_t *current;
 	/* Suppress unused parameter warning */
 	(void)line_number;
 
 	/* Print all elements on the stack */
-	stack_t *current = *stack;
+	current = *stack;
 
 	while (current)
 	{
