@@ -7,10 +7,6 @@
  * Return:
  *   EXIT_SUCCESS on success, EXIT_FAILURE on failure.
  */
-int main(int argc, char *argv[])
-{
-    // ... (rest of the code remains unchanged)
-}
 
 int main(int argc, char *argv[])
 {
