@@ -113,13 +113,15 @@ int main(int argc, char *argv[])
 				exit(EXIT_FAILURE);
 			}
 		}
+		if (read == EOF)
+        break;
 	}
 
 	free(input_str);
 	fclose(file);
 	free_stack(stack);
 	exit(EXIT_SUCCESS);
-	return (0);
+	
 }
 
 /**
@@ -146,6 +148,7 @@ void push(stack_t **stack, unsigned int line_number)
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		 free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
 
@@ -201,11 +204,15 @@ void pint(stack_t **stack, unsigned int line_number)
 }
 int is_numeric(const char *str)
 {
-	while (*str)
-	{
-		if (!isdigit(*str))
-			return (0);
-		str++;
-	}
-	return (1);
+    if (*str == '-' || *str == '+')
+        str++; 
+
+    while (*str)
+    {
+        if (!isdigit(*str))
+            return 0;
+        str++;
+    }
+    return 1;
 }
+
