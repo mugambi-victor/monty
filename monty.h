@@ -1,9 +1,11 @@
 #ifndef MONTY_H
 #define MONTY_H
-#include <string.h>
 #include <stdio.h>
-#include <unistd.h>
-
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <sys/types.h>
+#define MAX_TOKENS 2
 extern char *stack_token[];
 
 /**
@@ -49,6 +51,10 @@ void pint(stack_t **stack, unsigned int line_number);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 int is_numeric(const char *str);
 void printeger(int number);
-
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void free_stack(stack_t *stack);
 int snprintf(char *str, size_t size, const char *format, ...);
 #endif
