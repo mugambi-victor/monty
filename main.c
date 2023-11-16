@@ -18,7 +18,16 @@ int main(int argc, char *argv[])
 	 {"swap", swap},
 	 {"add", add},
 	 {"nop", nop},
-
+     {"sub", sub},
+     {"div", div_op},
+     {"mul", mul_operation},
+     {"mod", modulo_op},
+     {"pchar", pchar},
+     {"pstr", pstr},
+     {"rotl", rotl},
+     {"rotr", rotr},
+     {"stack", stack},
+     {"queue", queue},
 	{NULL, NULL}
 };
 	FILE *file;
@@ -52,6 +61,8 @@ int main(int argc, char *argv[])
 		if (input_str[read - 1] == '\n')
 			input_str[read - 1] = '\0';
 
+        if (input_str[0] == '#' || input_str[0] == '\0')
+            continue;
 		token_count = tokenize(input_str, " \t\n", stack_token, MAX_TOKENS);
 
 		if (token_count > 0)

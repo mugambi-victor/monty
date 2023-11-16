@@ -57,4 +57,14 @@ void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
 int snprintf(char *str, size_t size, const char *format, ...);
+void sub(stack_t **stack, unsigned int line_number);
+void div_op(stack_t **stack, unsigned int line_number);
+void mul_operation(stack_t **stack, unsigned int line_number);
+void modulo_op(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);
+void rotl(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
+void stack(stack_t **stack, unsigned int line_number);
+void queue(stack_t **stack, unsigned int line_number);
 #endif
