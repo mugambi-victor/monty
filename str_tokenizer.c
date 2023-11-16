@@ -11,6 +11,7 @@ char *stack_token[MAX_TOKENS];
 instruction_t opcodes[] = {
 	{"push", push},
 	{"pall", pall},
+	 {"pint", pint},
 	{NULL, NULL}
 };
 
@@ -132,14 +133,11 @@ void push(stack_t **stack, unsigned int line_number)
 	int value;
 
 	stack_t *new_node;
-	 if (stack_token[1] == NULL || !is_numeric(stack_token[1]))
-    {
-        fprintf(stderr, "L%d: usage: push integer\n", line_number);
-
-        free_stack(*stack);
-        *stack = NULL;
-        return;
-    }
+	if (stack_token[1] == NULL || !is_numeric(stack_token[1]))
+	{
+		fprintf(stderr, "%d\n", EXIT_FAILURE);
+		 fprintf(stderr, "L%d: usage: push integer\n", line_number);
+	}
 
 	value = atoi(stack_token[1]);
 
@@ -177,6 +175,17 @@ void pall(stack_t **stack, unsigned int line_number)
 		printf("%d\n", current->n);
 		current = current->next;
 	}
+}
+
+void pint(stack_t **stack, unsigned int line_number)
+{
+    if (*stack == NULL)
+    {
+        fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+
+    printf("%d\n", (*stack)->n);
 }
 int is_numeric(const char *str)
 {

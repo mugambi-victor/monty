@@ -1,3 +1,5 @@
 push 4
-pall
+push 1
+push 3
+pint
 push a
