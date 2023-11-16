@@ -46,7 +46,7 @@ void pall(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
 int tokenize(char *input_str, const char *delimiter, char *stack_tokens[], int max_tokens);
 void pint(stack_t **stack, unsigned int line_number);
-size_t getline(char **lineptr, size_t *n, FILE *stream);
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 int is_numeric(const char *str);
 void printeger(int number);
 

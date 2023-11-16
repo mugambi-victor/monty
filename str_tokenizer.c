@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <sys/types.h>
 
-#define MAX_TOKENS 100
+#define MAX_TOKENS 2
 char *stack_token[MAX_TOKENS];
 
 instruction_t opcodes[] = {
