@@ -135,8 +135,9 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node;
 	if (stack_token[1] == NULL || !is_numeric(stack_token[1]))
 	{
-		fprintf(stderr, "%d\n", EXIT_FAILURE);
+		free_stack(*stack);
 		 fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		 exit(EXIT_FAILURE);
 	}
 
 	value = atoi(stack_token[1]);
@@ -164,28 +165,39 @@ void push(stack_t **stack, unsigned int line_number)
 * @stack: double pointer to the head of the stack
 * @line_number: line number in the Monty byte code file
 */
+
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current;
-	(void)line_number;
+
+	(void) line_number;
 
 	current = *stack;
+
 	while (current != NULL)
 	{
-		printf("%d\n", current->n);
+		printeger(current->n);
+		write(STDOUT_FILENO, "\n", 1);
 		current = current->next;
 	}
+}
+void printeger(int number)
+{
+	char buffer[20];
+	int len = snprintf(buffer, sizeof(buffer), "%d", number);
+
+	write(STDOUT_FILENO, buffer, len);
 }
 
 void pint(stack_t **stack, unsigned int line_number)
 {
-    if (*stack == NULL)
-    {
-        fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-    printf("%d\n", (*stack)->n);
+	printf("%d\n", (*stack)->n);
 }
 int is_numeric(const char *str)
 {

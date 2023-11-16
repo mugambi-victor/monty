@@ -2,7 +2,7 @@
 #define MONTY_H
 #include <string.h>
 #include <stdio.h>
-
+#include <unistd.h>
 
 extern char *stack_token[];
 
@@ -48,4 +48,7 @@ int tokenize(char *input_str, const char *delimiter, char *stack_tokens[], int m
 void pint(stack_t **stack, unsigned int line_number);
 size_t getline(char **lineptr, size_t *n, FILE *stream);
 int is_numeric(const char *str);
+void printeger(int number);
+
+int snprintf(char *str, size_t size, const char *format, ...);
 #endif
