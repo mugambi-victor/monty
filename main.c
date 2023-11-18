@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t read;
 	int line_number = 0;
+int mode_set = 0;
 
 	if (argc != 2)
 	{
@@ -52,46 +53,50 @@ int main(int argc, char *argv[])
 	}
 
 
-	while ((read = getline(&input_str, &len, file)) != -1)
-	{
-		int token_count;
+while ((read = getline(&input_str, &len, file)) != -1) {
+    int token_count;
 
-		line_number++;
+    line_number++;
 
-		if (input_str[read - 1] == '\n')
-			input_str[read - 1] = '\0';
+    if (input_str[read - 1] == '\n')
+        input_str[read - 1] = '\0';
 
-        if (input_str[0] == '#' || input_str[0] == '\0')
-            continue;
-		token_count = tokenize(input_str, " \t\n", stack_token, MAX_TOKENS);
+    if (input_str[0] == '#' || input_str[0] == '\0')
+        continue;
 
-		if (token_count > 0)
-		{
-			char *opcode = stack_token[0];
+    token_count = tokenize(input_str, " \t\n", stack_token, MAX_TOKENS);
 
-			int i;
+    if (token_count > 0) {
+        int i;
+        char *opcode;
+        opcode = stack_token[0];
 
-			for (i = 0; opcodes[i].opcode != NULL; i++)
-			{
-				if (strcmp(opcode, opcodes[i].opcode) == 0)
-				{
-					opcodes[i].f(&stack, line_number);
-					break;
-				}
-			}
+        if (!mode_set) {
+            if (strcmp(opcode, "queue") == 0 || strcmp(opcode, "stack") == 0) {
+                set_mode(opcode);
+                mode_set = 1;
+            }
+        }
 
-			if (opcodes[i].opcode == NULL)
-			{
-				fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
-				free(input_str);
-				fclose(file);
-				free_stack(stack);
-				exit(EXIT_FAILURE);
-			}
-		}
-		if (read == EOF)
+        for (i = 0; opcodes[i].opcode != NULL; i++) {
+            if (strcmp(opcode, opcodes[i].opcode) == 0) {
+                opcodes[i].f(&stack, line_number);
+                break;
+            }
+        }
+
+        if (opcodes[i].opcode == NULL) {
+            fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode);
+            free(input_str);
+            fclose(file);
+            free_stack(stack);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if (read == EOF)
         break;
-	}
+}
 
 	free(input_str);
 	fclose(file);

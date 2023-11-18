@@ -12,28 +12,29 @@ void stack(stack_t **stack, unsigned int line_number)
 	/* Do nothing, already in stack mode (LIFO) */
 }
 
+
+
 /**
-* queue - Sets the format of the data to a queue (FIFO).
-* @stack: Double pointer to the head of the stack.
-* @line_number: Line number in the Monty byte code file.
+* queue - transforms the stack into a queue
+* @stack: double pointer to the head of the stack
+* @line_number: line number in the Monty byte code file
 */
 void queue(stack_t **stack, unsigned int line_number)
 {
-	stack_t *temp = *stack;
-
+	stack_t *temp;
 	(void)line_number;
 
-	if (*stack != NULL)
-	{
-		while (temp->next != NULL)
-			temp = temp->next;
+	if (*stack == NULL || (*stack)->next == NULL)
+		return;
 
-		if (temp->prev != NULL)
-			temp->prev->next = NULL;
+	temp = *stack;
 
-		temp->prev = NULL;
-		temp->next = *stack;
-		(*stack)->prev = temp;
-		*stack = temp;
-	}
+	while (temp->next != NULL)
+		temp = temp->next;
+
+	temp->prev->next = NULL;
+	temp->prev = NULL;
+	temp->next = *stack;
+	(*stack)->prev = temp;
+	*stack = temp;
 }

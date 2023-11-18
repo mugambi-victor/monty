@@ -26,6 +26,11 @@ int tokenize(char *input_str, const char *delimiter, char *stack_tokens[], int m
 
 	if (token_count >= 1 && strcmp(stack_tokens[0], "queue") == 0 && token_count >= 2)
 	{
+		
+		return (0);
+	}
+	else if (token_count >= 1 && strcmp(stack_tokens[0], "stack") == 0 && token_count >= 2)
+	{
 		return (0);
 	}
 
